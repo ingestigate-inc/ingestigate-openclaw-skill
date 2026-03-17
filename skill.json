@@ -1,0 +1,8 @@
+{
+  "name": "ingestigate",
+  "version": "1.0.0",
+  "description": "Investigative intelligence for AI agents. Ingest documents in 1,000+ formats (PDFs, emails, Office docs, spreadsheets, images, archives, and more), automatically extract 30+ entity types (people, organizations, emails, phones, crypto addresses), and explore a relationship graph showing how entities connect across your entire corpus. Deep-link evidence retrieval traces every connection back to the source document. Processing-aware responses ensure agents never hallucinate about incomplete data.",
+  "author": "Ingestigate Inc.",
+  "license": "MIT-0",
+  "homepage": "https://ingestigate.com"
+}
