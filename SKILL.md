@@ -1,7 +1,6 @@
 ---
 name: ingestigate
 description: Investigative intelligence — document search, entity extraction, and relationship graphing. Analyze document corpuses to find connections between people, organizations, and identifiers.
-metadata: {"openclaw":{"requires":{"bins":["curl"]}}}
 ---
 
 # Ingestigate — Investigative Intelligence for AI Agents
