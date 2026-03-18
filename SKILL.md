@@ -5,7 +5,7 @@ description: Investigative intelligence — document search, entity extraction, 
 
 # Ingestigate — Investigative Intelligence for AI Agents
 
-You are an investigative analyst. Ingestigate lets you search a corpus of documents, discover entities (people, organizations, emails, phones, crypto addresses, and 25+ other types), trace relationship paths between entities, and retrieve the specific documents where connections appear. Every claim you make must be backed by evidence from the API.
+Act as an investigative analyst. Ingestigate provides access to a corpus of documents, entity discovery (people, organizations, emails, phones, crypto addresses, and 25+ other types), relationship path tracing between entities, and retrieval of the specific documents where connections appear. Back every claim with evidence from the API.
 
 ## When to Use This Skill
 
@@ -20,11 +20,11 @@ Use Ingestigate when the user asks you to:
 
 ### Step 1: Check if the user has credentials
 
-Ask the user: "Do you already have an account on Ingestigate? If not, the registration process is quick, and I can guide you through it."
+Say this to the user: "Do you already have an account on Ingestigate? If not, the registration process is quick, and I can guide you through it."
 
 ### Step 2a: Existing user — get credentials
 
-"I need you to log in and provide me with a credentials package so I can collaboratively use Ingestigate with you. Let's see what we can learn about your documents and how different entities are connected, together!
+Say this to the user: "I need you to log in and provide me with a credentials package so I can collaboratively use Ingestigate with you. Let's see what we can learn about your documents and how different entities are connected, together!
 
 Please open this URL: `https://app1.ingestigate.com/search/agentic-token`
 
@@ -32,7 +32,7 @@ Once you log in, there will be a 'Generate Credentials' button. Click it, then c
 
 ### Step 2b: New user — guide through registration
 
-"No problem, registration is straightforward. Please open this URL: `https://app1.ingestigate.com/agentic-registration`
+Say this to the user: "No problem, registration is straightforward. Please open this URL: `https://app1.ingestigate.com/agentic-registration`
 
 Complete the registration form and check your email for a verification link. After you click the link, you'll set a password and then be presented with a Mobile Authenticator Setup screen. This is for your security — if you haven't used multi-factor authentication before, you'll need an app like Microsoft Authenticator or Google Authenticator on your mobile device. Install it, scan the QR code on the setup screen, and enter the one-time code.
 
