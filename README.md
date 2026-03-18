@@ -1,10 +1,12 @@
 # Ingestigate — OpenClaw Skill
 
-Investigative intelligence for AI agents. This skill enables OpenClaw agents to search document corpuses, extract entities, trace relationship paths, and retrieve evidence — all through the Ingestigate platform.
+Investigative intelligence for AI agents. This skill gives OpenClaw agents the ability to search document corpuses, extract entities, trace relationship paths, and retrieve evidence — capabilities that are impossible for an agent working with raw files alone.
 
-## What Ingestigate Does
+## Why This Exists
 
-Ingestigate ingests documents in 1,000+ formats (PDFs, emails, Office docs, spreadsheets, images, archives, and more), automatically extracts 30+ entity types (people, organizations, emails, phone numbers, crypto addresses, and more), and builds a relationship graph showing how entities connect across your entire corpus.
+An AI agent can't OCR a scanned passport, parse a blockchain CSV, extract crypto addresses from a PDF, and map how those connect to shell companies in a DOCX — all in one session. The files are too varied, the formats too complex, and the cross-referencing too large for any context window.
+
+Ingestigate handles all of that before the agent ever sees the data. It ingests documents in 1,000+ formats, automatically extracts 30+ entity types (people, organizations, emails, phones, crypto addresses, bank accounts, and more), and builds a relationship graph mapping connections across the entire corpus. The agent gets structured, evidence-backed results through a simple API — not raw files it can't process.
 
 ## What the Agent Can Do
 
@@ -14,6 +16,10 @@ Ingestigate ingests documents in 1,000+ formats (PDFs, emails, Office docs, spre
 - **Retrieve evidence** — get the specific documents where two entities co-occur
 - **Upload and process** new document sets through an automated ETL pipeline
 - **Monitor processing** — real-time status of document ingestion, entity extraction, and graph building
+
+## Self-Teaching
+
+The agent fetches the complete developer guide from the API after authenticating. The platform teaches the agent how to use it — no external documentation required.
 
 ## Setup
 
