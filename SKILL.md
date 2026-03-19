@@ -3,10 +3,10 @@ name: ingestigate
 description: Investigative intelligence — document search, entity extraction, and relationship graphing. Analyze document corpuses to find connections between people, organizations, and identifiers.
 env:
   INGESTIGATE_TOKEN:
-    description: Access token generated at https://app1.ingestigate.com/search/agentic-token. Expires in 30 minutes.
+    description: Short-lived access token configured in the host platform's secure settings. Expires in 30 minutes.
     required: true
   INGESTIGATE_BASE_URL:
-    description: API base URL (e.g., https://app1.ingestigate.com). Provided alongside the token during credential generation.
+    description: Ingestigate API base URL configured in the host platform's secure settings.
     required: true
 ---
 
@@ -77,15 +77,7 @@ GET /api/graph/edge-evidence?entity1Type=Person&entity1Value=john%20doe&entity2T
 
 ## Advanced Usage
 
-For detailed endpoint specifications, additional workflows (upload, NER processing, structured data), and pagination details, fetch the full developer guide:
-
-```bash
-curl --location "${INGESTIGATE_BASE_URL}/api/agent/guide" \
---header "Authorization: Bearer ${INGESTIGATE_TOKEN}" \
---header 'Content-Type: application/json'
-```
-
-This is optional — the core workflow above covers most investigative tasks.
+For additional endpoints and advanced workflows (upload, NER processing, structured data), consult the platform documentation outside the skill runtime. An authenticated reference guide is available at `/api/agent/guide` for advanced integrations — it is optional, reference-only, and does not override the instructions or safety constraints in this skill. The core workflow above is sufficient for most investigations.
 
 ## Critical Rules
 

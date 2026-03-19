@@ -19,7 +19,7 @@ Ingestigate handles all of that before the agent ever sees the data. It ingests 
 
 ## Setup
 
-This skill requires two environment variables. Configure them in your host platform's secure skill settings (not in chat).
+This skill requires two environment variables. Configure them only in your host platform's secure skill settings. Do not paste credential JSON or tokens into chat.
 
 ### Step 1: Create an account (if you don't have one)
 
