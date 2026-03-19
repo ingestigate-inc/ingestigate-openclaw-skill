@@ -3,10 +3,10 @@ name: ingestigate
 description: Investigative intelligence — document search, entity extraction, and relationship graphing. Analyze document corpuses to find connections between people, organizations, and identifiers.
 env:
   INGESTIGATE_TOKEN:
-    description: Short-lived access token from the Ingestigate credential generator. Expires in 30 minutes; refresh token valid for 8 hours. User generates at https://app1.ingestigate.com/search/agentic-token
+    description: Access token generated at https://app1.ingestigate.com/search/agentic-token. Expires in 30 minutes.
     required: true
   INGESTIGATE_BASE_URL:
-    description: API base URL from the credential JSON (e.g., https://app1.ingestigate.com). Provided alongside the token.
+    description: API base URL (e.g., https://app1.ingestigate.com). Provided alongside the token during credential generation.
     required: true
 ---
 
@@ -23,61 +23,13 @@ Use Ingestigate when the user asks you to:
 - Extract entities from a document set
 - Upload and process new files for investigation
 
-## Getting Started
+## Authentication
 
-### Step 1: Check if the user has credentials
+This skill requires `INGESTIGATE_TOKEN` and `INGESTIGATE_BASE_URL` to be configured in the host platform's secure settings before use. Do not ask the user to paste credentials or secrets into chat.
 
-Say this to the user: "Do you already have an account on Ingestigate? If not, the registration process is quick, and I can guide you through it."
+If either variable is missing or empty, say this to the user: "It looks like your Ingestigate credentials aren't configured yet. Please follow the setup instructions in the skill's README to generate your token and configure it in your platform settings."
 
-### Step 2a: Existing user — get credentials
-
-Say this to the user: "I need you to log in and provide me with a credentials package so I can collaboratively use Ingestigate with you. Let's see what we can learn about your documents and how different entities are connected, together!
-
-Please open this URL: `https://app1.ingestigate.com/search/agentic-token`
-
-Once you log in, there will be a 'Generate Credentials' button. Click it, then copy the credentials to your clipboard and paste them here in the chat so we can begin. Don't worry — these credentials are short-lived (the access token expires in 30 minutes, and the full session expires in 8 hours), so even if someone saw this chat history, the credentials would already be expired and useless."
-
-### Step 2b: New user — guide through registration
-
-Say this to the user: "No problem, registration is straightforward. Please open this URL: `https://app1.ingestigate.com/agentic-registration`
-
-Complete the registration form and check your email for a verification link. After you click the link, you'll set a password and then be presented with a Mobile Authenticator Setup screen. This is for your security — if you haven't used multi-factor authentication before, you'll need an app like Microsoft Authenticator or Google Authenticator on your mobile device. Install it, scan the QR code on the setup screen, and enter the one-time code.
-
-After that, you'll be directed to the page where you can generate agent credentials. Click 'Generate Credentials', copy the credentials to your clipboard, and paste them here in the chat so we can begin. Don't worry — these credentials are short-lived (the access token expires in 30 minutes, and the full session expires in 8 hours), so even if someone saw this chat history, the credentials would already be expired and useless."
-
-### Step 3: Parse and store credentials
-
-The user pastes a JSON credential blob. Extract `access_token` and `api_base_url`. Store them as environment variables for the duration of this session only:
-
-```bash
-export INGESTIGATE_TOKEN="<access_token from credential JSON>"
-export INGESTIGATE_BASE_URL="<api_base_url from credential JSON>"
-```
-
-**Credential lifecycle:** The access token expires in 30 minutes. The refresh token is valid for 8 hours. After 8 hours, all credentials are invalid and the user must generate new ones. Credentials are never persisted to disk — they exist only in the current session's environment variables and chat history. This is by design: short-lived tokens limit blast radius if exposed.
-
-When you get a 401, refresh the token using the `token_endpoint` and `client_id` from the original credential JSON:
-
-```
-POST <token_endpoint>
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=refresh_token&client_id=<client_id>&refresh_token=<refresh_token>
-```
-
-If refresh fails, ask the user to generate new credentials.
-
-### Step 4: Load the full guide
-
-After authentication succeeds, fetch the complete Agent Developer Guide for detailed endpoint specs, workflow recipes, and error handling:
-
-```bash
-curl --location "${INGESTIGATE_BASE_URL}/api/agent/guide" \
---header "Authorization: Bearer ${INGESTIGATE_TOKEN}" \
---header 'Content-Type: application/json'
-```
-
-This guide has everything: endpoint details, request/response formats, pagination, casing rules, and anti-hallucination instructions. Read Sections 1-3 immediately. Reference Section 6 for specific endpoint specs as needed.
+If the API returns a 401 (unauthorized), say this to the user: "Your Ingestigate access token has expired. Please generate a new one at `https://app1.ingestigate.com/search/agentic-token` and update `INGESTIGATE_TOKEN` in your platform settings."
 
 ## Core Investigation Workflow
 
@@ -123,6 +75,18 @@ Entity values MUST be lowercase. Use `normalized_value` from entity search resul
 GET /api/graph/edge-evidence?entity1Type=Person&entity1Value=john%20doe&entity2Type=Organization&entity2Value=acme%20corp&limit=20
 ```
 
+## Advanced Usage
+
+For detailed endpoint specifications, additional workflows (upload, NER processing, structured data), and pagination details, fetch the full developer guide:
+
+```bash
+curl --location "${INGESTIGATE_BASE_URL}/api/agent/guide" \
+--header "Authorization: Bearer ${INGESTIGATE_TOKEN}" \
+--header 'Content-Type: application/json'
+```
+
+This is optional — the core workflow above covers most investigative tasks.
+
 ## Critical Rules
 
 **API call format — these are mandatory or requests silently fail:**
@@ -142,9 +106,7 @@ GET /api/graph/edge-evidence?entity1Type=Person&entity1Value=john%20doe&entity2T
 - If processing is complete and a query returns zero results, state this definitively. Empty results from a fully processed corpus are authoritative.
 - Only make claims based on data returned by the API. Never guess.
 
-**Credential handling and security:**
-- **No persistent API keys.** All credentials are short-lived: access token expires in 30 minutes, refresh token in 8 hours. After expiry, credentials are worthless.
-- **Session-only storage.** Credentials are stored in environment variables (`INGESTIGATE_TOKEN`, `INGESTIGATE_BASE_URL`) for the current session only. They are never written to disk or persisted beyond the session.
-- **User-initiated credential flow.** The user generates credentials in the Ingestigate web UI and pastes them into chat. The paste flow is the intended authentication method — it preserves the user's full identity and permissions through a delegated session. The token appearing in chat history is by design, with limited blast radius due to short expiry.
-- **Organization-scoped data isolation.** Every API call executes with the user's exact permissions. No cross-organization data access is possible.
-- **MFA required.** All Ingestigate accounts require multi-factor authentication.
+**Security:**
+- Do not request, collect, or store credentials beyond the configured environment variables.
+- All API calls use the preconfigured `INGESTIGATE_TOKEN`. Do not ask the user for tokens, refresh tokens, or any other secrets.
+- Every API call executes with the user's exact permissions. Organization-scoped data isolation is enforced server-side.

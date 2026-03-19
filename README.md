@@ -17,21 +17,34 @@ Ingestigate handles all of that before the agent ever sees the data. It ingests 
 - **Upload and process** new document sets through an automated ETL pipeline
 - **Monitor processing** — real-time status of document ingestion, entity extraction, and graph building
 
-## Self-Teaching
-
-The agent fetches the complete developer guide from the API after authenticating. The platform teaches the agent how to use it — no external documentation required.
-
 ## Setup
 
-1. **Create an account** at [app1.ingestigate.com/agentic-registration](https://app1.ingestigate.com/agentic-registration) or log in if you already have one.
-2. **Generate credentials** at [app1.ingestigate.com/search/agentic-token](https://app1.ingestigate.com/search/agentic-token).
-3. **Set the environment variables** from the credential JSON:
-   ```bash
-   export INGESTIGATE_TOKEN="<access_token from credential JSON>"
-   export INGESTIGATE_BASE_URL="<api_base_url from credential JSON>"
-   ```
+This skill requires two environment variables. Configure them in your host platform's secure skill settings (not in chat).
 
-The agent will guide you through this process if you haven't set it up yet.
+### Step 1: Create an account (if you don't have one)
+
+Visit [app1.ingestigate.com/agentic-registration](https://app1.ingestigate.com/agentic-registration) and complete the registration form. You'll need to verify your email and set up multi-factor authentication (MFA) using an app like Microsoft Authenticator or Google Authenticator.
+
+### Step 2: Generate credentials
+
+Log in and visit [app1.ingestigate.com/search/agentic-token](https://app1.ingestigate.com/search/agentic-token). Click **Generate Credentials**. This produces a JSON containing your access token and API base URL.
+
+### Step 3: Configure the environment variables
+
+From the credential JSON, copy these two values into your host platform's secure skill settings:
+
+| Variable | Value | Source field in credential JSON |
+|----------|-------|-------------------------------|
+| `INGESTIGATE_TOKEN` | Your access token | `access_token` |
+| `INGESTIGATE_BASE_URL` | API base URL | `api_base_url` |
+
+### Token expiry
+
+The access token expires in **30 minutes**. When it expires, the agent will tell you. Generate a new token at the same URL and update `INGESTIGATE_TOKEN` in your platform settings.
+
+### Advanced: Full developer guide
+
+For advanced usage (upload workflows, NER processing, structured data endpoints, pagination), an authenticated agent can fetch the full developer guide from the API at `/api/agent/guide`. This is optional — the core investigative workflow is built into the skill.
 
 ## Plans
 
@@ -44,7 +57,7 @@ The agent will guide you through this process if you haven't set it up yet.
 
 ## Security
 
-- **No persistent API keys.** Short-lived delegated sessions only (30-minute access tokens, 8-hour refresh). When the session ends, the credentials are worthless.
+- **No persistent API keys.** Short-lived access tokens only (30-minute expiry). When the token expires, it is worthless.
 - **Organization-scoped data isolation.** Every agent action is scoped to the user's exact permissions. No cross-organization data leakage.
 - **Full audit trail.** Every action the agent takes is traceable to a specific authenticated user.
 - **MFA required.** All accounts use multi-factor authentication.

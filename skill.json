@@ -1,7 +1,7 @@
 {
   "name": "ingestigate",
-  "version": "1.0.0",
-  "description": "Investigative intelligence for AI agents. Ingestigate handles what agents can't do alone: OCR, document parsing, entity extraction, and relationship graphing across 1,000+ file formats — PDFs, emails, scanned images, spreadsheets, chat logs, blockchain data, and more. The platform does the heavy lifting, then gives agents structured, evidence-backed access to 30+ entity types, connection paths between entities, and the source documents proving each link. Self-teaching: the agent fetches the full developer guide from the API before operating. Processing-aware responses prevent hallucination about incomplete data.",
+  "version": "1.0.3",
+  "description": "Investigative intelligence for AI agents. Ingestigate handles what agents can't do alone: OCR, document parsing, entity extraction, and relationship graphing across 1,000+ file formats — PDFs, emails, scanned images, spreadsheets, chat logs, blockchain data, and more. The platform does the heavy lifting, then gives agents structured, evidence-backed access to 30+ entity types, connection paths between entities, and the source documents proving each link. Processing-aware responses prevent hallucination about incomplete data.",
   "author": "Ingestigate Inc.",
   "license": "MIT-0",
   "homepage": "https://ingestigate.com"
