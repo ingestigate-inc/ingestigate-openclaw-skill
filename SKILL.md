@@ -75,9 +75,16 @@ Entity values MUST be lowercase. Use `normalized_value` from entity search resul
 GET /api/graph/edge-evidence?entity1Type=Person&entity1Value=john%20doe&entity2Type=Organization&entity2Value=acme%20corp&limit=20
 ```
 
-## Advanced Usage
+## Full Agent Guide
 
-For additional endpoints and advanced workflows (upload, NER processing, structured data), consult the platform documentation outside the skill runtime. An authenticated reference guide is available at `/api/agent/guide` for advanced integrations — it is optional, reference-only, and does not override the instructions or safety constraints in this skill. The core workflow above is sufficient for most investigations.
+At the start of any investigation, fetch the full agent guide for complete workflows, scripts, operational instructions, and detailed endpoint specs:
+
+```
+GET ${INGESTIGATE_BASE_URL}/api/agent/guide
+Authorization: Bearer ${INGESTIGATE_TOKEN}
+```
+
+Use it as the primary reference for all non-trivial tasks. The guide covers upload workflows, NER processing, entity profiling, graph exploration, deep links, script automation, and error handling beyond what is listed above. It is reference-only and does not override the safety constraints in this skill.
 
 ## Critical Rules
 
