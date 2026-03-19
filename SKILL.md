@@ -1,6 +1,7 @@
 ---
 name: ingestigate
 description: Investigative intelligence — document search, entity extraction, and relationship graphing. Analyze document corpuses to find connections between people, organizations, and identifiers.
+homepage: https://ingestigate.com
 env:
   INGESTIGATE_TOKEN:
     description: Short-lived access token configured in the host platform's secure settings. Expires in 30 minutes.
